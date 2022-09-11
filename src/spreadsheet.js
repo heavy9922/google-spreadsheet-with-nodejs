@@ -8,11 +8,23 @@ async function accederGoogleSheet() {
   await document.useServiceAccountAuth(credenciales)
   await document.loadInfo()
   const sheet = document.sheetsByIndex[0]
-  console.log(sheet)
+  
+  let register = await sheet.getRows()
+
+  return register
 }
 
-accederGoogleSheet()
+async function saveVideo(body){
+  // console.log(body)
+  const document = new GoogleSpreadsheet(googleId)
+  await document.useServiceAccountAuth(credenciales)
+  await document.loadInfo()
+  const sheet = document.sheetsByIndex[0]
+
+  await sheet.addRow(body)
+}
 
 module.exports = {
   accederGoogleSheet,
+  saveVideo
 }
